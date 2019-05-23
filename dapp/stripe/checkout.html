@@ -46,8 +46,8 @@ $(function () {
                 stripe.redirectToCheckout({
                   items: [{sku: sku, quantity: 1}],
                   clientReferenceId: userAddress,
-                  successUrl: window.location.protocol + '//sanmarcoscoin.com/dapp/stripe/success.html',
-                  cancelUrl: window.location.protocol + '//sanmarcoscoin.com/dapp/stripe/canceled.html',
+                  successUrl: window.location.protocol + '//www.sanmarcoscoin.com/dapp/stripe/success.html',
+                  cancelUrl: window.location.protocol + '//www.sanmarcoscoin.com/dapp/stripe/canceled.html',
                 })
                 .then(function (result) {
                   if (result.error) {
@@ -65,10 +65,11 @@ $(function () {
 <body>
 <div class="container">
 
-    <p>
+    <p class="text-center">
+        <br/>
         <img src="smc_logo.png" width="120"/>
         <br/>
-        <small id="user-address"></small>
+        <span id="user-address" class="text-muted"></span>
     </p>
 
     <div id="error-message" class="alert alert-error" style="display:none"></div>
