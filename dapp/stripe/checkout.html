@@ -42,7 +42,7 @@ $(function () {
 
             var skus = ["sku_F7FPJglnUcBd1W", "sku_F7FUmEQHUmw06B", "sku_F7FUxLBnHO6rqN", "sku_F7FVoSpJ7WUk2L"];
             skus.forEach(function (sku, index) {
-              $('#checkout-button-' + sku).addEventListener('click', function () {
+              $('#checkout-button-' + sku).click(function () {
                 stripe.redirectToCheckout({
                   items: [{sku: sku, quantity: 1}],
                   clientReferenceId: userAddress,
@@ -70,6 +70,7 @@ $(function () {
         <img src="smc_logo.png" width="120"/>
         <br/>
         <span id="user-address" class="text-muted"></span>
+        <br/>
     </p>
 
     <div id="error-message" class="alert alert-error" style="display:none"></div>
