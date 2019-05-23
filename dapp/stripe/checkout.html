@@ -38,6 +38,7 @@ $(function () {
             $('#error-message').text("Please load this page inside CMT Wallet");
         } else {
             var userAddress = address.toString();
+            $('#user-address').text(userAddress);
 
             var skus = ["sku_F7FPJglnUcBd1W", "sku_F7FUmEQHUmw06B", "sku_F7FUxLBnHO6rqN", "sku_F7FVoSpJ7WUk2L"];
             skus.forEach(function (sku, index) {
@@ -63,6 +64,12 @@ $(function () {
 </head>
 <body>
 <div class="container">
+
+    <p>
+        <img src="smc_logo.png" width="120"/>
+        <br/>
+        <small id="user-address"></small>
+    </p>
 
     <div id="error-message" class="alert alert-error" style="display:none"></div>
 
