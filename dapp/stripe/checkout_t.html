@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,user-scalable=no">
+    <title>Get SMCs!</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://js.stripe.com/v3"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120065893-15"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-120065893-15');
+    </script>
+    <script src="js/browser.js"></script>
+
+    <script>
+$(function () {
+    var webBrowser = new AppLink();
+    webBrowser.openBrowser();
+
+    var stripe = Stripe('pk_test_J4HlG6vG9HbwqJSXd6crK1XT00skHccVKo');
+
+    web3.cmt.getAccounts(function (e, address) {
+        if (e) {
+            $('#error-message').css("display", "block");
+            $('#error-message').text("Please load this page inside CMT Wallet");
+        } else {
+            var userAddress = address.toString();
+            $('#user-address').text(userAddress);
+
+            var skus = ["sku_F7QCGkdxtHqUX8", "sku_F7QO14iWvPyUM8", "sku_F7QQDhTzn66SYo", "sku_F7QQSc6x9qRkmQ"];
+            skus.forEach(function (sku, index) {
+              $('#checkout-button-' + sku).click(function () {
+                stripe.redirectToCheckout({
+                  items: [{sku: sku, quantity: 1}],
+                  clientReferenceId: userAddress,
+                  successUrl: window.location.protocol + '//www.sanmarcoscoin.com/dapp/stripe/success.html',
+                  cancelUrl: window.location.protocol + '//www.sanmarcoscoin.com/dapp/stripe/canceled.html',
+                })
+                .then(function (result) {
+                  if (result.error) {
+                    $('#error-message').css("display", "block");
+                    $('#error-message').text(result.error.message);
+                  }
+                });
+              });
+            });
+        }
+    });
+});
+    </script>
+</head>
+<body>
+<div class="container">
+
+    <p class="text-center">
+        <br/>
+        <img src="smc_logo.png" width="120"/>
+        <br/>
+        <span id="user-address" class="text-muted"></span>
+        <br/>
+        <span class="text-muted">Test environment. Please use VISA card 4242 4242 4242 4242, a valid expiration date in the future, and any random CVC number to test</span>
+        <br/>
+    </p>
+
+    <div id="error-message" class="alert alert-error" style="display:none"></div>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>Try $5 to see what this is about!</td>
+                <td><button id="checkout-button-sku_F7QCGkdxtHqUX8" class="btn btn-success" type="button">Buy</button></td>
+            </tr>
+            <tr>
+                <td>Get $12 SMCs at 20% discount</td>
+                <td><button id="checkout-button-sku_F7QO14iWvPyUM8" class="btn btn-success" type="button">Buy</button></td>
+            </tr>
+            <tr>
+                <td>Get $24 SMCs at 20% discount</td>
+                <td><button id="checkout-button-sku_F7QQDhTzn66SYo" class="btn btn-success" type="button">Buy</button></td>
+            </tr>
+            <tr>
+                <td>Get $62.5 SMCs at 25% discount</td>
+                <td><button id="checkout-button-sku_F7QQSc6x9qRkmQ" class="btn btn-success" type="button">Buy</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
