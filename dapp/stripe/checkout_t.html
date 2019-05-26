@@ -46,8 +46,8 @@ $(function () {
                 stripe.redirectToCheckout({
                   items: [{sku: sku, quantity: 1}],
                   clientReferenceId: userAddress,
-                  successUrl: window.location.protocol + '//www.sanmarcoscoin.com/dapp/stripe/success.html',
-                  cancelUrl: window.location.protocol + '//www.sanmarcoscoin.com/dapp/stripe/canceled.html',
+                  successUrl: window.location.protocol + '//www.sanmarcoscoin.com/dapp/stripe/success_t.html',
+                  cancelUrl: window.location.protocol + '//www.sanmarcoscoin.com/dapp/stripe/canceled_t.html',
                 })
                 .then(function (result) {
                   if (result.error) {
