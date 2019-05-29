@@ -32,7 +32,8 @@ $(function () {
 
     var stripe = Stripe('pk_live_jTM3GrXwtasjL48356ywj6Tc00sVzYe4EH');
 
-    web3.cmt.getAccounts(function (e, address) {
+    try {
+      web3.cmt.getAccounts(function (e, address) {
         if (e) {
             $('#error-message').css("display", "block");
             $('#error-message').text("Please load this page inside CMT Wallet");
@@ -58,7 +59,12 @@ $(function () {
               });
             });
         }
-    });
+      });
+    } catch (error) {
+      $('#user-address').text("You must open this page in the CMT Wallet mobile app");
+      $('#cmt-wallet').css("display", "inline-block");
+      $('.btn-success').prop('disabled', true);
+    }
 });
     </script>
 </head>
