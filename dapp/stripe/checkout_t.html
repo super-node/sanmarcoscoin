@@ -32,13 +32,13 @@ $(function () {
 
     var stripe = Stripe('pk_test_J4HlG6vG9HbwqJSXd6crK1XT00skHccVKo');
 
-    var userAddress;
-    web3.cmt.getAccounts(function (e, address) {
+    try {
+      web3.cmt.getAccounts(function (e, address) {
         if (e) {
             $('#error-message').css("display", "block");
             $('#error-message').text("Please load this page inside CMT Wallet");
         } else {
-            userAddress = address.toString();
+            var userAddress = address.toString();
             $('#user-address').text(userAddress);
 
             var skus = ["sku_F7QCGkdxtHqUX8", "sku_F7QO14iWvPyUM8", "sku_F7QQDhTzn66SYo", "sku_F7QQSc6x9qRkmQ"];
@@ -59,14 +59,12 @@ $(function () {
               });
             });
         }
-
-        if (!userAddress) {
-            $('#user-address').text("You must open this page in the CMT Wallet mobile app");
-            $('#cmt-wallet').css("display", "block");
-            $('.btn-success').prop('disabled', true);
-        }
-
-    });
+      });
+    } catch (error) {
+      $('#user-address').text("You must open this page in the CMT Wallet mobile app");
+      $('#cmt-wallet').css("display", "block");
+      $('.btn-success').prop('disabled', true);
+    }
 });
     </script>
 </head>
