@@ -137,9 +137,9 @@ var AppLink = (function () {
                 }
             } else {
                 // tip.error("You should download MetaMask for CMT first！");
-                setTimeout(function () {
-                    window.location.href = 'https://www.cybermiles.io/metamask/';
-                }, 3000);
+                // setTimeout(function () {
+                //     window.location.href = 'https://www.cybermiles.io/metamask/';
+                // }, 3000);
             }
         }
     }

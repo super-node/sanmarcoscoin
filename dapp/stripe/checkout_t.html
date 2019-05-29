@@ -32,12 +32,13 @@ $(function () {
 
     var stripe = Stripe('pk_test_J4HlG6vG9HbwqJSXd6crK1XT00skHccVKo');
 
+    var userAddress;
     web3.cmt.getAccounts(function (e, address) {
         if (e) {
             $('#error-message').css("display", "block");
             $('#error-message').text("Please load this page inside CMT Wallet");
         } else {
-            var userAddress = address.toString();
+            userAddress = address.toString();
             $('#user-address').text(userAddress);
 
             var skus = ["sku_F7QCGkdxtHqUX8", "sku_F7QO14iWvPyUM8", "sku_F7QQDhTzn66SYo", "sku_F7QQSc6x9qRkmQ"];
@@ -58,6 +59,13 @@ $(function () {
               });
             });
         }
+
+        if (!userAddress) {
+            $('#user-address').text("You must open this page in the CMT Wallet mobile app");
+            $('#cmt-wallet').css("display", "block");
+            $('.btn-success').prop('disabled', true);
+        }
+
     });
 });
     </script>
@@ -74,7 +82,7 @@ $(function () {
         <span id="user-address" class="text-muted"></span>
         <br/><br/>
         <a href="/#services" class="btn btn-outline-info" role="button">How to use SMC</a>
-        <a href="http://onelink.to/v248ze" class="btn btn-outline-secondary" role="button">Get CMT Wallet</a>
+        <a href="http://onelink.to/v248ze" id="cmt-wallet" style="display:none" class="btn btn-outline-secondary" role="button">Get CMT Wallet</a>
         <br/>
     </p>
 
